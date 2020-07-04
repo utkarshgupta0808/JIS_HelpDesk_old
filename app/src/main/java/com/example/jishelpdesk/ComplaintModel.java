@@ -1,0 +1,63 @@
+package com.example.jishelpdesk;
+
+public class ComplaintModel {
+
+    String tokenId;
+    String name;
+    String date;
+    String status;
+    String address;
+    String complaint;
+    String mobile;
+
+    public ComplaintModel(){
+
+    }
+
+
+    public ComplaintModel(String tokenId, String name, String date, String status, String address, String complaint, String mobile) {
+        this.tokenId = tokenId;
+        this.name = name;
+        this.date = date;
+        this.status = status;
+        this.address = address;
+        this.complaint = complaint;
+        this.mobile = mobile;
+    }
+
+
+
+    public String getTokenId() {
+        return tokenId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getComplaint() {
+        return complaint;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+
+}
