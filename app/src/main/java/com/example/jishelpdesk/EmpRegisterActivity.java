@@ -14,7 +14,7 @@ public class EmpRegisterActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     Button btnReg, btnReset;
-    TextView eName, emobile, eAddress, ePanNumber;
+    TextView eName, eAddress, ePanNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +25,6 @@ public class EmpRegisterActivity extends AppCompatActivity {
         btnReg=findViewById(R.id.btn_reg);
         btnReset=findViewById(R.id.btn_reset);
         eName=findViewById(R.id.emp_name);
-        emobile=findViewById(R.id.emp_mobile);
         eAddress=findViewById(R.id.emp_address);
         ePanNumber=findViewById(R.id.emp_pan);
 
@@ -52,7 +51,6 @@ public class EmpRegisterActivity extends AppCompatActivity {
 
         ePanNumber.setText("");
         eAddress.setText("");
-        emobile.setText("");
         eName.setText("");
 
     }

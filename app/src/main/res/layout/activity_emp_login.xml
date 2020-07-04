@@ -16,20 +16,7 @@
         app:titleTextColor="@color/colorAccent"
         app:title="JIS HelpDesk">
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Register"
-                android:textColor="@color/colorAccent"
-                android:textSize="15sp"
-                android:scaleY="0.8"
-                android:id="@+id/reg_button"
-                android:layout_gravity="end"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
 
-                android:background="@drawable/custom_button1"/>
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -53,63 +40,95 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Employee Login"
+                android:text="Employee"
                 android:layout_gravity="center"
                 android:textSize="25sp"
                 android:textColor="@color/colorPrimaryDark"
                 android:textStyle="bold"
                 android:layout_marginBottom="30dp"/>
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:background="@drawable/custom_edittext"
-                android:hint="Username"
-                android:drawableStart="@drawable/icon_email"
-                android:drawablePadding="5dp"
-                android:inputType="textEmailAddress"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:textSize="20sp"
-                android:maxLines="1"
-                android:paddingStart="10dp"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:paddingEnd="10dp"
-                android:gravity="center_vertical"
-                android:layout_gravity="center_horizontal"
-                android:id="@+id/username"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:background="@drawable/custom_edittext"
-                android:layout_marginStart="20dp"
-                android:maxLines="1"
-                android:gravity="center_vertical"
-                android:layout_marginEnd="20dp"
-                android:textSize="20sp"
-                android:hint="Password"
-                android:layout_marginTop="30dp"
-                android:drawableStart="@drawable/icon_password"
-                android:drawablePadding="5dp"
-                android:inputType="textPassword"
-                android:paddingStart="10dp"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:paddingEnd="10dp"
-                android:layout_gravity="center_horizontal"
-                android:id="@+id/password"/>
-
-            <TextView
+            <com.rilixtech.widget.countrycodepicker.CountryCodePicker
+                android:id="@+id/ccp"
                 android:layout_width="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginBottom="5dp"
+                android:layout_marginStart="20dp"
                 android:layout_height="wrap_content"
-                android:text="Forgot Password ?"
-                android:layout_gravity="end"
+                android:padding="10dp"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@drawable/custom_edittext"
+                android:hint="Mobile Number"
+                android:drawablePadding="5dp"
+                android:inputType="number"
+                android:layout_marginStart="20dp"
+                android:drawableStart="@drawable/ic_baseline_phone_24"
                 android:layout_marginEnd="20dp"
-                android:layout_marginTop="10dp"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="15sp"/>
+                android:textSize="20sp"
+                android:maxLines="1"
+                android:paddingStart="10dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="10dp"
+                android:gravity="center_vertical"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/number"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal">
+
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:id="@+id/progress_bar"
+                    style="?android:attr/progressBarStyle"
+                    android:visibility="invisible" />
+
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="20dp"
+                    android:maxLines="1"
+                    android:maxLength="6"
+                    android:inputType="number"
+                    android:gravity="center"
+                    android:layout_marginEnd="20dp"
+                    android:hint="Enter OTP"
+                    android:layout_marginTop="30dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:visibility="invisible"
+                    android:drawablePadding="5dp"
+                    android:paddingStart="10dp"
+                    android:paddingBottom="10dp"
+                    android:background="@drawable/custom_edittext"
+                    android:layout_weight="1"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="10dp"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/otp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:visibility="invisible"
+                    android:layout_marginEnd="10dp"
+                    android:text="RESEND"
+                    android:textColor="@color/colorPrimary"
+                    android:id="@+id/resend"/>
+
+            </LinearLayout>
+
+
+
 
 
 
@@ -123,7 +142,7 @@
                 android:paddingStart="20dp"
                 android:id="@+id/login_button"
                 android:paddingEnd="20dp"
-                android:text="LOGIN"
+                android:text="NEXT"
                 android:textColor="@color/colorAccent"/>
 
 
