@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,12 +17,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.rilixtech.widget.countrycodepicker.CountryCodePicker;
 
@@ -38,6 +44,9 @@ public class EmpLoginActivity extends AppCompatActivity {
     String verficationId;
     PhoneAuthProvider.ForceResendingToken token;
     Boolean verificationInProgress=false;
+    FirebaseFirestore firebaseFirestore;
+    ProgressDialog progressDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +56,7 @@ public class EmpLoginActivity extends AppCompatActivity {
         firebaseAuth=FirebaseAuth.getInstance();
         toolbar=findViewById(R.id.toolbar);
         countryCodePicker=findViewById(R.id.ccp);
+        firebaseFirestore=FirebaseFirestore.getInstance();
 
         btnLogin=findViewById(R.id.login_button);
         resendOTP=findViewById(R.id.resend);
@@ -62,9 +72,10 @@ public class EmpLoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(!verificationInProgress){
                     String numberMob=mobileNumber.getText().toString();
-                    if (!numberMob.isEmpty() && numberMob.length()==10){
+                    if (numberMob.length() == 10){
                         String number=countryCodePicker.getSelectedCountryCodeWithPlus()+numberMob;
-                        progressBar.setVisibility(View.VISIBLE);
+//                        progressBar.setVisibility(View.VISIBLE);
+                        showProgress();
                         otp.setVisibility(View.VISIBLE);
                         requestOTP(number);
                         }
@@ -74,46 +85,47 @@ public class EmpLoginActivity extends AppCompatActivity {
                 }
                 else {
                     String userOTP=otp.getText().toString();
-                    if(!userOTP.isEmpty() && userOTP.length()==6){
+                    if(userOTP.length() == 6){
                         PhoneAuthCredential phoneAuthCredential=PhoneAuthProvider.getCredential(verficationId,userOTP);
-                        progressBar.setVisibility(View.VISIBLE);
+//                        progressBar.setVisibility(View.VISIBLE);
+                        showProgress();
                         verifyAuth(phoneAuthCredential);
                     }
                     else {
-                        otp.setError("Enter the valid OTP");
+                        otp.setError("OTP must contain 6 digits");
                     }
                 }
             }
         });
-
-
-
-
     }
 
-    private void verifyAuth(PhoneAuthCredential phoneAuthCredential) {
-        firebaseAuth.signInWithCredential(phoneAuthCredential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-
-                if(task.isSuccessful()){
-                    Toast.makeText(EmpLoginActivity.this, "Authentication is Succesfull", Toast.LENGTH_SHORT).show();
-                    progressBar.setVisibility(View.GONE);
-                }
-                else {
-                    Toast.makeText(EmpLoginActivity.this, "Authenticationa Failed", Toast.LENGTH_SHORT).show();
-                    progressBar.setVisibility(View.GONE);
-                }
-            }
-        });
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(firebaseAuth.getCurrentUser()!=null){
+//            progressBar.setVisibility(View.VISIBLE);
+            showProgress();
+            checkEmployeeProfile();
+//            progressBar.setVisibility(View.GONE);
+            progressDialog.dismiss();
+        }
+        else {
+            Toast.makeText(this, "Verify your number", Toast.LENGTH_SHORT).show();
+        }
     }
+
+
+
+
 
     private void requestOTP(String number) {
         PhoneAuthProvider.getInstance().verifyPhoneNumber(number, 60L, TimeUnit.SECONDS, this, new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                 super.onCodeSent(s, forceResendingToken);
-                progressBar.setVisibility(View.GONE);
+//                progressBar.setVisibility(View.GONE);
+                progressDialog.dismiss();
                 verficationId=s;
                 token=forceResendingToken;
                 btnLogin.setText("Verify");
@@ -136,5 +148,46 @@ public class EmpLoginActivity extends AppCompatActivity {
                 Toast.makeText(EmpLoginActivity.this, "Cannot create account "+ e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void verifyAuth(PhoneAuthCredential phoneAuthCredential) {
+        firebaseAuth.signInWithCredential(phoneAuthCredential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+
+                if(task.isSuccessful()){
+                    checkEmployeeProfile();
+                }
+                else {
+                    Toast.makeText(EmpLoginActivity.this, "Authentication Failed", Toast.LENGTH_SHORT).show();
+                }
+//                progressBar.setVisibility(View.GONE);
+                progressDialog.dismiss();
+            }
+        });
+    }
+    private void checkEmployeeProfile() {
+        DocumentReference documentReference=firebaseFirestore.collection("Employee").document(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid());
+        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if(documentSnapshot.exists()){
+                    startActivity(new Intent(getApplicationContext(),ComplaintEmpActivity.class));
+                }
+                else {
+                    startActivity(new Intent(getApplicationContext(),EmpRegisterActivity.class));
+                }
+                finish();
+            }
+        });
+    }
+    private void showProgress() {
+        Context context;
+        progressDialog = new ProgressDialog(EmpLoginActivity.this);
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.process_dialog);
+        Objects.requireNonNull(progressDialog.getWindow()).setBackgroundDrawableResource(
+                android.R.color.transparent
+        );
     }
 }

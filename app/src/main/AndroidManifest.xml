@@ -16,7 +16,8 @@
         <activity
             android:name=".ForgotPassAdminActivity"
             android:parentActivityName=".AdminLoginActivity" />
-        <activity android:name=".ComplaintEmpActivity" />
+        <activity android:name=".ComplaintEmpActivity"
+            android:parentActivityName=".WelcomePageActivity"/>
         <activity android:name=".EmpComplaintActivity" />
         <activity
             android:name=".EmpRegisterActivity"

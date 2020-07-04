@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         app:title="JIS HelpDesk"
-        app:titleTextColor="@color/colorAccent" />
+        app:titleTextColor="@color/colorAccent" >
+    </androidx.appcompat.widget.Toolbar>
 
     <TextView
         android:layout_width="wrap_content"
