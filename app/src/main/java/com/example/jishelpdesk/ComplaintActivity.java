@@ -137,7 +137,7 @@ public class ComplaintActivity extends AppCompatActivity {
                         if (task.isSuccessful()){
                             DocumentSnapshot documentSnapshot=task.getResult();
 
-                            c= Objects.requireNonNull(documentSnapshot).getLong("count");
+                            c= Objects.requireNonNull(documentSnapshot).getLong("countComplaint");
 
                             tokenString="9211"+c;
                             c=c+1;

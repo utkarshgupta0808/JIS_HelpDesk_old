@@ -1,5 +1,6 @@
 package com.example.jishelpdesk;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ public class ComplaintAdminAdapter extends FirestoreRecyclerAdapter<ComplaintMod
         super(options);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onBindViewHolder(@NonNull final MyViewHolder holder, int position, @NonNull final ComplaintModel model) {
         holder.tokenId.setText(""+model.getTokenId());

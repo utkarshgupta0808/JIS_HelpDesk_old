@@ -3,7 +3,12 @@ package com.example.jishelpdesk;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.Objects;
@@ -13,6 +18,8 @@ public class ComplaintInfoActivity extends AppCompatActivity {
     Toolbar toolbar;
     TextView tokenText, nameText, addressText, numberText, dateText, complaintText, statusText;
     Bundle extra;
+    Button btnAssign;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +34,7 @@ public class ComplaintInfoActivity extends AppCompatActivity {
         complaintText=findViewById(R.id.complaint);
         numberText=findViewById(R.id.number);
         addressText=findViewById(R.id.address);
+        btnAssign=findViewById(R.id.btn_assign);
 
 
         setSupportActionBar(toolbar);
@@ -43,5 +51,25 @@ public class ComplaintInfoActivity extends AppCompatActivity {
             numberText.setText(extra.getString("number1"));
         }
 
+        btnAssign.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showProgress();
+                Intent intent=new Intent(ComplaintInfoActivity.this,AssignEmp.class);
+                startActivity(intent);
+                progressDialog.dismiss();
+            }
+        });
+
+    }
+
+    private void showProgress() {
+        Context context;
+        progressDialog = new ProgressDialog(ComplaintInfoActivity.this);
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.process_dialog);
+        Objects.requireNonNull(progressDialog.getWindow()).setBackgroundDrawableResource(
+                android.R.color.transparent
+        );
     }
 }

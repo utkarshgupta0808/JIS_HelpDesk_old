@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -30,6 +31,8 @@ public class EmpRegisterActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firebaseFirestore;
     ProgressDialog progressDialog;
+    String empid;
+    long en;
 
 
     @Override
@@ -67,34 +70,57 @@ public class EmpRegisterActivity extends AppCompatActivity {
                 }
                 else {
                     showProgress();
-                    String name=eName.getText().toString();
-                    String address=eAddress.getText().toString();
-                    String pan=ePanNumber.getText().toString();
-                    String number=firebaseAuth.getCurrentUser().getPhoneNumber();
-                    HashMap<String,Object>user=new HashMap<>();
-                    user.put("name",name);
-                    user.put("address", address);
-                    user.put("pan",pan);
-                    user.put("number", number);
-
-                    documentReference.set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    firebaseFirestore =FirebaseFirestore.getInstance();
+                    firebaseFirestore.collection("Counter").document("123456789")
+                            .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if(task.isSuccessful()){
-                                startActivity(new Intent(getApplicationContext(),ComplaintEmpActivity.class));
-                                finish();
-                                progressDialog.dismiss();
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()){
+                                DocumentSnapshot documentSnapshot=task.getResult();
+
+                                en= Objects.requireNonNull(documentSnapshot).getLong("countComplaint");
+
+                                empid="Emp"+en;
+                                en=en+1;
+
+                                String name=eName.getText().toString();
+                                String address=eAddress.getText().toString();
+                                String pan=ePanNumber.getText().toString();
+                                String number=firebaseAuth.getCurrentUser().getPhoneNumber();
+                                HashMap<String,Object>user=new HashMap<>();
+                                user.put("name",name);
+                                user.put("address", address);
+                                user.put("pan",pan);
+                                user.put("number", number);
+                                user.put("empid",empid);
+
+                                documentReference.set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if(task.isSuccessful()){
+                                            startActivity(new Intent(getApplicationContext(),ComplaintEmpActivity.class));
+                                            finish();
+                                            resetFields();
+                                            progressDialog.dismiss();
+                                        }
+                                        else {
+                                            Toast.makeText(EmpRegisterActivity.this, "Registration Failed", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+
+//                                Toast.makeText(EmpRegisterActivity.this, "Registered Successfully", Toast.LENGTH_SHORT).show();
+//                                Intent intent=new Intent(EmpRegisterActivity.this, EmpComplaintActivity.class);
+//                                startActivity(intent);
+//                                resetFields();
                             }
                             else {
-                                Toast.makeText(EmpRegisterActivity.this, "Registration Failed", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(EmpRegisterActivity.this, "", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
-
-                    Toast.makeText(EmpRegisterActivity.this, "Registered Successfully", Toast.LENGTH_SHORT).show();
-                    Intent intent=new Intent(EmpRegisterActivity.this, EmpComplaintActivity.class);
-                    startActivity(intent);
-                    resetFields();
+                    
+                    
                 }
             }
         });

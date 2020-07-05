@@ -23,20 +23,20 @@
             android:orientation="horizontal"
             android:layout_gravity="end">
             <Button
-                android:layout_width="50dp"
+                android:layout_width="35dp"
                 android:layout_height="25dp"
                 android:text="Admin"
                 android:background="@color/colorPrimary"
-                android:textSize="15sp"
+                android:textSize="10sp"
                 android:id="@+id/adminButton"
                 android:textColor="@color/colorAccent"/>
             <Button
-                android:layout_width="75dp"
+                android:layout_width="50dp"
                 android:layout_height="25dp"
                 android:text="Employee"
                 android:background="@color/colorPrimary"
                 android:layout_marginEnd="10dp"
-                android:textSize="15sp"
+                android:textSize="10sp"
                 android:id="@+id/empButton"
                 android:layout_marginStart="10dp"
                 android:textColor="@color/colorAccent"/>

@@ -1,20 +1,18 @@
 package com.example.jishelpdesk;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -22,6 +20,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.firestore.DocumentReference;
@@ -38,7 +37,6 @@ public class EmpLoginActivity extends AppCompatActivity {
     Button btnLogin;
     TextView resendOTP;
     EditText mobileNumber ,otp;
-    ProgressBar progressBar;
     FirebaseAuth firebaseAuth;
     CountryCodePicker countryCodePicker;
     String verficationId;
@@ -61,7 +59,7 @@ public class EmpLoginActivity extends AppCompatActivity {
         btnLogin=findViewById(R.id.login_button);
         resendOTP=findViewById(R.id.resend);
         otp=findViewById(R.id.otp);
-        progressBar=findViewById(R.id.progress_bar);
+
         mobileNumber=findViewById(R.id.number);
 
         setSupportActionBar(toolbar);
@@ -110,7 +108,7 @@ public class EmpLoginActivity extends AppCompatActivity {
             progressDialog.dismiss();
         }
         else {
-            Toast.makeText(this, "Verify your number", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -156,18 +154,20 @@ public class EmpLoginActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 if(task.isSuccessful()){
+                    showProgress();
                     checkEmployeeProfile();
                 }
                 else {
                     Toast.makeText(EmpLoginActivity.this, "Authentication Failed", Toast.LENGTH_SHORT).show();
                 }
-//                progressBar.setVisibility(View.GONE);
+//                progressBar.setVisibility(View.GONE);.
                 progressDialog.dismiss();
             }
         });
     }
     private void checkEmployeeProfile() {
-        DocumentReference documentReference=firebaseFirestore.collection("Employee").document(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid());
+        DocumentReference documentReference=firebaseFirestore.collection("Employee")
+                .document(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid());
         documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -175,14 +175,22 @@ public class EmpLoginActivity extends AppCompatActivity {
                     startActivity(new Intent(getApplicationContext(),ComplaintEmpActivity.class));
                 }
                 else {
-                    startActivity(new Intent(getApplicationContext(),EmpRegisterActivity.class));
+                    FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+                    if (currentUser.getUid().equals("31Jmuim8itdNQfuJrFKjfrf91Bz1") || currentUser.getUid().equals("5gM6T2MdCQeXCPZ650RCOURnoZ92")) {
+
+                        Toast.makeText(EmpLoginActivity.this, "First Logout to Admin Account", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        startActivity(new Intent(getApplicationContext(), EmpRegisterActivity.class));
+                    }
+
                 }
                 finish();
             }
         });
     }
     private void showProgress() {
-        Context context;
+
         progressDialog = new ProgressDialog(EmpLoginActivity.this);
         progressDialog.show();
         progressDialog.setContentView(R.layout.process_dialog);

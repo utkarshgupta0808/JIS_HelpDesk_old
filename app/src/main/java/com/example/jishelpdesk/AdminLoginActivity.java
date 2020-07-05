@@ -69,36 +69,37 @@ public class AdminLoginActivity extends AppCompatActivity {
 
                 if (TextUtils.isEmpty(email)){
                     userName.setError("Email is Required");
-                    return;
                 }
 
-                if (TextUtils.isEmpty(pass)){
+               else if (TextUtils.isEmpty(pass)){
                     password.setError("Password is Required");
-                    return;
+                }
+               else {
+                    mAuth.signInWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()){
+                                showProgress();
+                                Toast.makeText(AdminLoginActivity.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(AdminLoginActivity.this, ComplaintAdminActivity.class);
+//                            intent.putExtra("user_id", "" + userId);
+                                startActivity(intent);
+
+                            }
+                            else {
+                                String errorMessage = Objects.requireNonNull(task.getException()).getMessage();
+                                Toast.makeText(AdminLoginActivity.this, "Error : " + errorMessage, Toast.LENGTH_LONG).show();
+
+                            }
+                            progressDialog.dismiss();
+                        }
+
+
+                    });
+
                 }
 
 
-                mAuth.signInWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()){
-                            showProgress();
-                            Toast.makeText(AdminLoginActivity.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(AdminLoginActivity.this, ComplaintAdminActivity.class);
-//                            intent.putExtra("user_id", "" + userId);
-                            startActivity(intent);
-
-                        }
-                        else {
-                            String errorMessage = Objects.requireNonNull(task.getException()).getMessage();
-                            Toast.makeText(AdminLoginActivity.this, "Error : " + errorMessage, Toast.LENGTH_LONG).show();
-
-                        }
-                        progressDialog.dismiss();
-                    }
-
-
-                });
 
             }
 
@@ -120,11 +121,20 @@ public class AdminLoginActivity extends AppCompatActivity {
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        if (currentUser != null) {
+        if(currentUser!=null){
+            if (currentUser.getUid().equals("31Jmuim8itdNQfuJrFKjfrf91Bz1" )) {
 
-            sendToMain();
+                sendToMain();
+
+            }
+            if (currentUser.getUid().equals("5gM6T2MdCQeXCPZ650RCOURnoZ92" )) {
+
+                sendToMain();
+
+            }
 
         }
+
 
 
     }

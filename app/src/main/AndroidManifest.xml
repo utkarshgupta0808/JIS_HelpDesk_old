@@ -11,13 +11,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ComplaintInfoActivity"
-            android:parentActivityName=".ComplaintAdminActivity"/>
+        <activity android:name=".AssignEmp"></activity>
+        <activity
+            android:name=".ComplaintInfoActivity"
+            android:parentActivityName=".ComplaintAdminActivity" />
         <activity
             android:name=".ForgotPassAdminActivity"
             android:parentActivityName=".AdminLoginActivity" />
-        <activity android:name=".ComplaintEmpActivity"
-            android:parentActivityName=".WelcomePageActivity"/>
+        <activity
+            android:name=".ComplaintEmpActivity"
+            android:parentActivityName=".WelcomePageActivity" />
         <activity android:name=".EmpComplaintActivity" />
         <activity
             android:name=".EmpRegisterActivity"
@@ -35,7 +38,6 @@
             android:name=".ComplaintActivity"
             android:parentActivityName=".WelcomePageActivity" />
         <activity android:name=".WelcomePageActivity" />
-        <activity android:name=".MainActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

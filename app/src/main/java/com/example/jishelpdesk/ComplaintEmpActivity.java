@@ -3,6 +3,8 @@ package com.example.jishelpdesk;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,24 +13,35 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+
+import java.util.Objects;
 
 public class ComplaintEmpActivity extends AppCompatActivity {
     Toolbar toolbar;
     Button btnLogout;
     FirebaseAuth mAuth;
+    FirebaseFirestore firebaseFirestore;
+    RecyclerView recyclerView;
+    EmpAdapter empAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_complaint_emp);
 
-        toolbar=findViewById(R.id.toolbar);
-        btnLogout=findViewById(R.id.btn_logout);
-        mAuth=FirebaseAuth.getInstance();
+        toolbar = findViewById(R.id.toolbar);
+        btnLogout = findViewById(R.id.btn_logout);
+        recyclerView = findViewById(R.id.emp_recyclerview);
+        mAuth = FirebaseAuth.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
+
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +61,8 @@ public class ComplaintEmpActivity extends AppCompatActivity {
 
             }
         });
+
+
     }
 
     private void logOut() {

@@ -5,44 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ComplaintEmpActivity">
+    android:background="@drawable/image_background"
+    tools:context=".AssignEmp">
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:title="JIS HelpDesk"
         android:background="@color/colorPrimary"
-        android:id="@+id/toolbar"
-        app:titleTextColor="@color/colorAccent"
-        app:title="JIS HelpDesk">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorAccent"
-            android:id="@+id/btn_logout"
-            android:text="LOGOUT"
-            android:layout_marginEnd="10dp"
-            android:gravity="center"
-            android:background="@color/colorPrimary"
-            android:layout_gravity="end"/>
+        app:titleTextColor="@color/colorPrimaryDark">
 
     </androidx.appcompat.widget.Toolbar>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
+        android:gravity="center"
+        android:text="Employee List"
         android:textColor="@color/colorPrimaryDark"
-        android:text="ASSIGNED COMPLAINTS "
-        android:gravity="center"/>
+        android:textSize="30sp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/complaint_emp_recyclerview"
-        android:scrollbars="vertical"/>
-
-
-
+        android:id="@+id/emp_recyclerview"/>
 
 </LinearLayout>
