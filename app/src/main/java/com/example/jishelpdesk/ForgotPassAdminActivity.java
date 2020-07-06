@@ -57,12 +57,12 @@ public class ForgotPassAdminActivity extends AppCompatActivity {
         btnForgotPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                String userEmail = editTextEmailInput.getText().toString();
                 showProgress();
 
+                String userEmail = editTextEmailInput.getText().toString();
                 if (TextUtils.isEmpty(userEmail)){
                     Toast.makeText(ForgotPassAdminActivity.this, "Please enter valid email address!", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
 
                 }
                 else {
@@ -70,7 +70,13 @@ public class ForgotPassAdminActivity extends AppCompatActivity {
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
+
                                     Toast.makeText(ForgotPassAdminActivity.this, "Reset Link Sent", Toast.LENGTH_SHORT).show();
+                                    editTextEmailInput.setText("");
+                                    Intent intent = new Intent(ForgotPassAdminActivity.this, AdminLoginActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                    progressDialog.dismiss();
 
 
 
@@ -80,12 +86,13 @@ public class ForgotPassAdminActivity extends AppCompatActivity {
                         public void onFailure(@NonNull Exception e) {
                             Toast.makeText(ForgotPassAdminActivity.this, "Error! Reset Link is not Sent "+ e.getMessage(), Toast.LENGTH_SHORT).show();
 
+                            progressDialog.dismiss();
                         }
                     });
 
 
                 }
-                progressDialog.dismiss();
+
             }
         });
 

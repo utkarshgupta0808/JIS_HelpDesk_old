@@ -12,6 +12,9 @@ public class EmpModel {
         this.empid = empid;
     }
 
+    public EmpModel() {
+    }
+
     public String getName() {
         return name;
     }

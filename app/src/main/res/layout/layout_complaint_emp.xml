@@ -14,39 +14,27 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginEnd="10dp"
         android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:text="View Profile"
-            android:textSize="12sp"
-            android:textColor="#4E481F"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="5dp"
-            android:id="@+id/view_profile"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Employee ID        : "
+                android:text="Token ID : "
                 android:textColor="@color/colorPrimaryDark"
+                android:layout_marginStart="20dp"
                 android:textSize="20sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Emp01"
-                android:id="@+id/empid"
+                android:text="abc1234"
+                android:id="@+id/tokenid"
                 android:textColor="@color/colorPrimary"
                 android:textSize="20sp"/>
 
@@ -56,26 +44,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
-
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Employee Name : "
+                android:text="Customer Name : "
                 android:textColor="@color/colorPrimaryDark"
+                android:layout_marginStart="20dp"
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/ename"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:maxLines="1"
                 android:text="jfnjkshgjdskhgsdkjgkdjgkjdkjgkdjkgjjkdgffjkljkjfjgkf"
+                android:maxLines="1"
+                android:layout_marginEnd="5dp"
+                android:id="@+id/cname"
+                android:layout_weight="1"
                 android:textColor="@color/colorPrimary"
-                android:textSize="20sp" />
+                android:textSize="20sp"/>
 
 
         </LinearLayout>
@@ -84,37 +72,37 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginStart="10dp"
+            android:layout_marginBottom="20dp"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Number                : "
+                android:text="Assigned on : "
                 android:textColor="@color/colorPrimaryDark"
+                android:layout_marginStart="20dp"
                 android:textSize="20sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="+911234567890"
+                android:text="DD/MM/YYYY"
                 android:textColor="@color/colorPrimary"
                 android:id="@+id/date"
                 android:textSize="20sp"/>
 
-
-
         </LinearLayout>
-
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Assign"
-            android:textSize="20sp"
-            android:layout_marginBottom="5dp"
-            android:layout_gravity="center"
-            android:id="@+id/assign"/>
+            android:text="View Details"
+            android:gravity="start"
+            android:layout_marginStart="20dp"
+            android:textSize="15sp"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/view_details"/>
+
+
 
 
     </LinearLayout>

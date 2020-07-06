@@ -110,5 +110,11 @@ public class ComplaintAdminActivity extends AppCompatActivity {
         complaintAdminAdapter.startListening();
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent=new Intent(this,WelcomePageActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }

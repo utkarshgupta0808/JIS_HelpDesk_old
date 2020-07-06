@@ -139,7 +139,7 @@ public class ComplaintActivity extends AppCompatActivity {
 
                             c= Objects.requireNonNull(documentSnapshot).getLong("countComplaint");
 
-                            tokenString="9211"+c;
+                            tokenString=""+c;
                             c=c+1;
 
 

@@ -15,10 +15,12 @@ import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class ComplaintEmpActivity extends AppCompatActivity {
     Toolbar toolbar;
@@ -26,7 +28,7 @@ public class ComplaintEmpActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseFirestore firebaseFirestore;
     RecyclerView recyclerView;
-    EmpAdapter empAdapter;
+    ComplaintEmpAdapter complaintEmpAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +37,25 @@ public class ComplaintEmpActivity extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar);
         btnLogout = findViewById(R.id.btn_logout);
-        recyclerView = findViewById(R.id.emp_recyclerview);
+        recyclerView = findViewById(R.id.complaint_emp_recyclerview);
         mAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
 
 
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
+
+        DocumentReference documentReference = firebaseFirestore.collection("Employee").document(mAuth.getUid());
+        Query query = documentReference.collection("Complaint");
+//        Query query= firebaseFirestore.collection("Complaint").orderBy("tokenId", Query.Direction.DESCENDING);
+        FirestoreRecyclerOptions<ComplaintModel> options= new FirestoreRecyclerOptions.Builder<ComplaintModel>()
+                .setQuery(query, ComplaintModel.class).build();
+        complaintEmpAdapter=new ComplaintEmpAdapter(options);
+        complaintEmpAdapter.notifyDataSetChanged();
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(complaintEmpAdapter);
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +78,17 @@ public class ComplaintEmpActivity extends AppCompatActivity {
 
 
     }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        complaintEmpAdapter.stopListening();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        complaintEmpAdapter.startListening();
+    }
 
     private void logOut() {
         mAuth.signOut();
@@ -76,4 +101,5 @@ public class ComplaintEmpActivity extends AppCompatActivity {
         finish();
         Toast.makeText(ComplaintEmpActivity.this, "Signed Out", Toast.LENGTH_SHORT).show();
     }
+
 }

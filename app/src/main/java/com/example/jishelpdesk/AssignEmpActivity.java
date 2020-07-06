@@ -14,7 +14,7 @@ import com.google.firebase.firestore.Query;
 
 import java.util.Objects;
 
-public class AssignEmp extends AppCompatActivity {
+public class AssignEmpActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     RecyclerView recyclerView;

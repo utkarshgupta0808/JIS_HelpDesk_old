@@ -1,9 +1,11 @@
 package com.example.jishelpdesk;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,10 +21,29 @@ public class EmpAdapter extends FirestoreRecyclerAdapter<EmpModel, EmpAdapter.My
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull EmpAdapter.MyViewHolder holder, int position, @NonNull EmpModel model) {
-        holder.Eid.setText(model.getEmpid());
-        holder.name.setText(model.getName());
-        holder.number.setText(model.getNumber());
+    protected void onBindViewHolder(@NonNull final EmpAdapter.MyViewHolder holder, int position, @NonNull final EmpModel model) {
+        System.out.println(model.getEmpid());
+        holder.Eid.setText(""+model.getEmpid());
+        holder.name.setText(""+model.getName());
+        holder.number.setText(""+model.getNumber());
+        holder.assign.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(holder.assign.getContext(), "Complaint Assigned to "+model.getName()+" Successfully", Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(holder.assign.getContext(),ComplaintAdminActivity.class);
+
+                holder.assign.getContext().startActivity(intent);
+
+            }
+        });
+        holder.viewProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(holder.assign.getContext(),EmpProfile.class);
+                holder.assign.getContext().startActivity(intent);
+
+            }
+        });
     }
 
 
@@ -39,16 +60,18 @@ public class EmpAdapter extends FirestoreRecyclerAdapter<EmpModel, EmpAdapter.My
         TextView Eid;
         TextView name;
         TextView number;
-
+        TextView assign;
+        TextView viewProfile;
 
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            Eid = itemView.findViewById(R.id.tokenid);
-            name = itemView.findViewById(R.id.cname);
+            Eid = itemView.findViewById(R.id.empid);
+            name = itemView.findViewById(R.id.ename);
             number = itemView.findViewById(R.id.date);
-
+            assign=itemView.findViewById(R.id.assign);
+            viewProfile=itemView.findViewById(R.id.view_profile);
 
 
         }

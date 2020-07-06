@@ -5,15 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/image_background"
-    tools:context=".AssignEmp">
+    android:background="@drawable/image_background1"
+    tools:context=".AssignEmpActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:title="JIS HelpDesk"
+        android:id="@+id/toolbar"
         android:background="@color/colorPrimary"
-        app:titleTextColor="@color/colorPrimaryDark">
+        app:titleTextColor="@color/colorAccent">
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -22,6 +23,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Employee List"
+        android:layout_marginTop="10dp"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="30sp"/>
 

@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import java.util.Objects;
 
-public class ComplaintInfoActivity extends AppCompatActivity {
+public class ComplaintInfoAdminActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     TextView tokenText, nameText, addressText, numberText, dateText, complaintText, statusText;
@@ -24,7 +24,7 @@ public class ComplaintInfoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_complaint_info);
+        setContentView(R.layout.activity_complaint_info_admin);
 
         toolbar=findViewById(R.id.toolbar);
         tokenText=findViewById(R.id.tokenid);
@@ -55,8 +55,9 @@ public class ComplaintInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 showProgress();
-                Intent intent=new Intent(ComplaintInfoActivity.this,AssignEmp.class);
+                Intent intent=new Intent(ComplaintInfoAdminActivity.this, AssignEmpActivity.class);
                 startActivity(intent);
+                finish();
                 progressDialog.dismiss();
             }
         });
@@ -65,7 +66,7 @@ public class ComplaintInfoActivity extends AppCompatActivity {
 
     private void showProgress() {
         Context context;
-        progressDialog = new ProgressDialog(ComplaintInfoActivity.this);
+        progressDialog = new ProgressDialog(ComplaintInfoAdminActivity.this);
         progressDialog.show();
         progressDialog.setContentView(R.layout.process_dialog);
         Objects.requireNonNull(progressDialog.getWindow()).setBackgroundDrawableResource(

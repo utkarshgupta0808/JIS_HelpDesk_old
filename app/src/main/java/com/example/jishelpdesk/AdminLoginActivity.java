@@ -75,11 +75,12 @@ public class AdminLoginActivity extends AppCompatActivity {
                     password.setError("Password is Required");
                 }
                else {
+                   showProgress();
                     mAuth.signInWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
-                                showProgress();
+
                                 Toast.makeText(AdminLoginActivity.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(AdminLoginActivity.this, ComplaintAdminActivity.class);
 //                            intent.putExtra("user_id", "" + userId);
