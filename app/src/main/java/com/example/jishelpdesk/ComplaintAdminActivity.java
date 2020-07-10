@@ -9,8 +9,10 @@ import com.google.firebase.firestore.Query.Direction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,11 +26,12 @@ import java.util.Objects;
 public class ComplaintAdminActivity extends AppCompatActivity {
 
     Toolbar toolbar;
-    Button button;
+    ImageButton button;
     FirebaseAuth mAuth;
     RecyclerView recyclerView;
     FirebaseFirestore firebaseFirestore;
     ComplaintAdminAdapter complaintAdminAdapter;
+    Bundle bundle;
 
 //    DocumentReference documentReference;
 //    String userId;
@@ -70,19 +73,7 @@ public class ComplaintAdminActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(ComplaintAdminActivity.this);
-                builder.setMessage("Are you sure you want to logout?")
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-
-                                logOut();
-                            }
-                        })
-                        .setNegativeButton("Cancel", null);
-                AlertDialog alert = builder.create();
-                alert.show();
-
+                showLogoutDialog();
             }
         });
     }
@@ -97,11 +88,43 @@ public class ComplaintAdminActivity extends AppCompatActivity {
         finish();
         Toast.makeText(ComplaintAdminActivity.this, "Signed Out", Toast.LENGTH_SHORT).show();
     }
+    void showLogoutDialog(){
+        LayoutInflater layoutInflater=LayoutInflater.from(this);
+        View view1=layoutInflater.inflate(R.layout.alert_dialog,null);
+        Button yesButton=view1.findViewById(R.id.btn_yes);
+        Button cancelButton=view1.findViewById(R.id.btn_cancel);
+
+        final AlertDialog alertDialog=new AlertDialog.Builder(this)
+                .setView(view1)
+                .create();
+        alertDialog.show();
+
+        yesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                logOut();
+            }
+        });
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+
+    }
 
     @Override
     protected void onStop() {
         super.onStop();
         complaintAdminAdapter.stopListening();
+        bundle=getIntent().getExtras();
+//        if(!getIntent().getBooleanExtra("back", true)){
+//            finish();
+//            System.exit(0);
+//        }
+
+
     }
 
     @Override
@@ -114,7 +137,8 @@ public class ComplaintAdminActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         Intent intent=new Intent(this,WelcomePageActivity.class);
-        startActivity(intent);
         finish();
+        startActivity(intent);
     }
+
 }

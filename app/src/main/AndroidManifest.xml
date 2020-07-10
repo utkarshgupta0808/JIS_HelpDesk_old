@@ -3,6 +3,8 @@
     package="com.example.jishelpdesk">
 
     <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -11,8 +13,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ComplaintInfoEmpActivity"></activity>
-        <activity android:name=".EmpProfile" />
+        <activity android:name=".ComplaintRegisteredActivity"
+            android:parentActivityName=".WelcomePageActivity"/>
+        <activity
+            android:name=".UploadAdhar"
+            android:parentActivityName=".EmpRegisterActivity" />
+        <activity
+            android:name=".ComplaintInfoEmpActivity"
+            android:parentActivityName=".ComplaintInfoEmpActivity" />
+        <activity android:name=".EmpProfileActivity" />
         <activity
             android:name=".AssignEmpActivity"
             android:parentActivityName=".ComplaintAdminActivity" />
@@ -25,7 +34,6 @@
         <activity
             android:name=".ComplaintEmpActivity"
             android:parentActivityName=".WelcomePageActivity" />
-        <activity android:name=".EmpComplaintActivity" />
         <activity
             android:name=".EmpRegisterActivity"
             android:parentActivityName=".EmpLoginActivity" />

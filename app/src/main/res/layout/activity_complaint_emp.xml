@@ -16,16 +16,27 @@
         app:titleTextColor="@color/colorAccent"
         app:title="JIS HelpDesk">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:textColor="@color/colorAccent"
             android:id="@+id/btn_logout"
-            android:text="LOGOUT"
-            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_logout"
             android:gravity="center"
             android:background="@color/colorPrimary"
             android:layout_gravity="end"/>
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:textColor="@color/colorAccent"
+            android:id="@+id/btn_profile"
+            android:src="@drawable/ic_icon_profile"
+            android:gravity="center"
+            android:background="@color/colorPrimary"
+            android:layout_gravity="end"/>
+
+
 
     </androidx.appcompat.widget.Toolbar>
 

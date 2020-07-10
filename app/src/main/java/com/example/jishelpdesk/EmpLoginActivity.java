@@ -105,7 +105,7 @@ public class EmpLoginActivity extends AppCompatActivity {
             progressDialog.dismiss();
         }
         else {
-            Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
+
         }
     }
 

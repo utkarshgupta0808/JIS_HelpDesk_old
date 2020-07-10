@@ -1,5 +1,6 @@
 package com.example.jishelpdesk;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -40,6 +41,7 @@ public class ComplaintEmpAdapter extends FirestoreRecyclerAdapter<ComplaintModel
                 bundle.putString("number1", model.getMobile());
                 intent.putExtras(bundle);
                 holder.viewDetails.getContext().startActivity(intent);
+//                ((Activity)holder.viewDetails.getContext()).finish();
             }
         });
     }

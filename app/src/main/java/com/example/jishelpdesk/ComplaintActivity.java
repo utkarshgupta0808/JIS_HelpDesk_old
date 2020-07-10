@@ -1,40 +1,26 @@
 package com.example.jishelpdesk;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import android.Manifest;
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.pm.PackageManager;
+import android.content.Intent;
 import android.os.Bundle;
-import android.telephony.SmsManager;
-import android.text.Layout;
 import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.firebase.firestore.EventListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -47,7 +33,7 @@ public class ComplaintActivity extends AppCompatActivity {
 
     EditText complaintText, numberText, nameText, addressText;
     Button btn_submit, btn_reset;
-    final int SEND_SMS_PERMISSION_REQUEST_CODE = 1;
+
     ProgressDialog progressDialog;
     Toolbar toolbar;
     Map<String, Object> user = new HashMap<>();
@@ -87,14 +73,6 @@ public class ComplaintActivity extends AppCompatActivity {
 
 
 
-
-        btn_submit.setEnabled(false);
-        if(checkPermission(Manifest.permission.SEND_SMS)){
-            btn_submit.setEnabled(true);
-        }
-        else {
-            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.SEND_SMS}, SEND_SMS_PERMISSION_REQUEST_CODE);
-        }
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
@@ -140,16 +118,10 @@ public class ComplaintActivity extends AppCompatActivity {
                             c= Objects.requireNonNull(documentSnapshot).getLong("countComplaint");
 
                             tokenString=""+c;
-                            c=c+1;
+                            c++;
 
 
-                            user.put("tokenId", tokenString);
-                            user.put("name", cName);
-                            user.put("mobile", cMobile);
-                            user.put("status", "Unassigned");
-                            user.put("address", cAddress);
-                            user.put("complaint", cComplaint);
-                            user.put("date", cDate);
+
 
                             DocumentReference docRef =FirebaseFirestore.getInstance()
                                     .collection("Counter").document("123456789");
@@ -160,14 +132,22 @@ public class ComplaintActivity extends AppCompatActivity {
                             docRef.update(map1).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    Toast.makeText(ComplaintActivity.this, "", Toast.LENGTH_SHORT).show();
+
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(ComplaintActivity.this,"", Toast.LENGTH_SHORT).show();
+
                                 }
                             });
+
+                            user.put("tokenId", tokenString);
+                            user.put("name", cName);
+                            user.put("mobile", cMobile);
+                            user.put("status", "Unassigned");
+                            user.put("address", cAddress);
+                            user.put("complaint", cComplaint);
+                            user.put("date", cDate);
 
                             db.collection("Complaint")
                                     .add(user)
@@ -188,9 +168,12 @@ public class ComplaintActivity extends AppCompatActivity {
                                         }
                                     });
 
-                            onSend(view);
 
                             progressDialog.dismiss();
+                            Intent intent=new Intent(ComplaintActivity.this, ComplaintRegisteredActivity.class);
+                            startActivity(intent);
+                            finish();
+
 
 
 
@@ -201,20 +184,10 @@ public class ComplaintActivity extends AppCompatActivity {
                         else {
                             Toast.makeText(ComplaintActivity.this, "Error : " + Objects.requireNonNull(task.getException())
                                     .getMessage(), Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
                         }
                     }
                 });
-
-
-
-
-
-// Add a new document with a generated ID
-
-
-
-
-
             }
         });
         btn_reset.setOnClickListener(new View.OnClickListener() {
@@ -227,28 +200,9 @@ public class ComplaintActivity extends AppCompatActivity {
 
 
     }
-    public void onSend(View view){
-        String mobileNumber = numberText.getText().toString();
-        String message= "Your complaint has been registered with tokenId "+ tokenString+". Our executive will reach you soon. ThankYou";
-
-        if(mobileNumber.length()==0){
-            return;
-        }
-        if(checkPermission(Manifest.permission.SEND_SMS)){
-            SmsManager smsManager= SmsManager.getDefault();
-            smsManager.sendTextMessage(mobileNumber, null, message, null, null);
-            Toast.makeText(this, "Message Sent!!", Toast.LENGTH_SHORT).show();
-        }
-        else {
-            Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
-        }
-    }
 
 
-    public boolean checkPermission(String permission){
-        int check = ContextCompat.checkSelfPermission(this, permission);
-        return (check== PackageManager.PERMISSION_GRANTED);
-    }
+
     public void resetFields(){
         nameText.setText("");
         numberText.setText("");
@@ -256,7 +210,7 @@ public class ComplaintActivity extends AppCompatActivity {
         complaintText.setText("");
     }
     private void showProgress() {
-        Context context;
+
         progressDialog = new ProgressDialog(ComplaintActivity.this);
         progressDialog.show();
         progressDialog.setContentView(R.layout.process_dialog);

@@ -15,8 +15,10 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         if (getIntent().getBooleanExtra("EXIT", false)){
+
             finish();
-            System.exit(0);
+            System.exit(1);
+
         }
         else {
             Thread thread = new Thread(new Runnable() {

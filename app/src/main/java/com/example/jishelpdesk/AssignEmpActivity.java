@@ -1,11 +1,11 @@
 package com.example.jishelpdesk;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,6 +21,7 @@ public class AssignEmpActivity extends AppCompatActivity {
     FirebaseFirestore firebaseFirestore;
     FirebaseAuth firebaseAuth;
     EmpAdapter empAdapter;
+    static String tokenId, name, date, number, status, complaint, address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,19 @@ public class AssignEmpActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(empAdapter);
+
+        Bundle extra=getIntent().getExtras();
+
+        assert extra != null;
+        tokenId=extra.getString("tokenId");
+        name=extra.getString("name");
+        date=extra.getString("date");
+        status=extra.getString("status");
+        complaint=extra.getString("complaint");
+        address=extra.getString("address");
+        number=extra.getString("number1");
+
+
     }
 
     @Override
@@ -57,5 +71,6 @@ public class AssignEmpActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         empAdapter.stopListening();
+
     }
 }

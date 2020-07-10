@@ -1,17 +1,16 @@
 package com.example.jishelpdesk;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -26,13 +25,14 @@ import java.util.Objects;
 public class EmpRegisterActivity extends AppCompatActivity {
 
     Toolbar toolbar;
-    Button btnReg, btnReset;
-    TextView eName, eAddress, ePanNumber;
+    Button btnReg, btnReset, btnAadhar;
+    TextView eName, eAddress, ePanNumber, uploadStatus;
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firebaseFirestore;
     ProgressDialog progressDialog;
     String empid;
     long en;
+    Bundle extra;
 
 
     @Override
@@ -46,9 +46,13 @@ public class EmpRegisterActivity extends AppCompatActivity {
         eName=findViewById(R.id.emp_name);
         eAddress=findViewById(R.id.emp_address);
         ePanNumber=findViewById(R.id.emp_pan);
+        btnAadhar=findViewById(R.id.btn_upload);
+        uploadStatus=findViewById(R.id.upload_status);
+
+        extra=getIntent().getExtras();
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         firebaseAuth=FirebaseAuth.getInstance();
         firebaseFirestore=FirebaseFirestore.getInstance();
@@ -67,6 +71,12 @@ public class EmpRegisterActivity extends AppCompatActivity {
                 }
                 else if(ePanNumber.getText().toString().isEmpty()){
                     ePanNumber.setError("Pan Number is Mandatory");
+                }
+                else if (extra==null){
+
+                    uploadStatus.setError("Aadhaar card is required");
+                    Toast.makeText(EmpRegisterActivity.this, "Upload Aadhaar card first!!", Toast.LENGTH_SHORT).show();
+
                 }
                 else {
                     showProgress();
@@ -93,6 +103,8 @@ public class EmpRegisterActivity extends AppCompatActivity {
                                 user.put("pan",pan);
                                 user.put("number", number);
                                 user.put("empid",empid);
+                                user.put("cActive",0);
+                                user.put("ctotal",0);
 
                                 documentReference.set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
@@ -109,13 +121,8 @@ public class EmpRegisterActivity extends AppCompatActivity {
                                     }
                                 });
 
-//                                Toast.makeText(EmpRegisterActivity.this, "Registered Successfully", Toast.LENGTH_SHORT).show();
-//                                Intent intent=new Intent(EmpRegisterActivity.this, EmpComplaintActivity.class);
-//                                startActivity(intent);
-//                                resetFields();
                             }
                             else {
-                                Toast.makeText(EmpRegisterActivity.this, "", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -130,7 +137,25 @@ public class EmpRegisterActivity extends AppCompatActivity {
                 resetFields();
             }
         });
+
+        btnAadhar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(EmpRegisterActivity.this,UploadAdhar.class);
+                startActivity(intent);
+            }
+        });
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (extra != null) {
+
+            uploadStatus.setVisibility(View.VISIBLE);
+        }
+    }
+
     public void resetFields(){
 
         ePanNumber.setText("");
@@ -139,7 +164,6 @@ public class EmpRegisterActivity extends AppCompatActivity {
 
     }
     private void showProgress() {
-        Context context;
         progressDialog = new ProgressDialog(EmpRegisterActivity.this);
         progressDialog.show();
         progressDialog.setContentView(R.layout.process_dialog);

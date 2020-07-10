@@ -41,7 +41,9 @@ public class WelcomePageActivity extends AppCompatActivity {
             public void onClick(View view) {
                 showProgress();
                 Intent intent=new Intent(WelcomePageActivity.this,AdminLoginActivity.class);
+
                 startActivity(intent);
+                finish();
                 progressDialog.dismiss();
             }
         });
@@ -53,6 +55,7 @@ public class WelcomePageActivity extends AppCompatActivity {
                 showProgress();
                 Intent intent=new Intent(WelcomePageActivity.this, EmpLoginActivity.class);
                 startActivity(intent);
+
                 progressDialog.dismiss();
             }
         });
@@ -65,9 +68,11 @@ public class WelcomePageActivity extends AppCompatActivity {
         if(backPressedTime+ 2000> System.currentTimeMillis()){
             super.onBackPressed();
             Intent intent=new Intent(WelcomePageActivity.this ,SplashActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
             intent.putExtra("EXIT", true);
             startActivity(intent);
+            finish();
+
 
 
 
@@ -78,7 +83,6 @@ public class WelcomePageActivity extends AppCompatActivity {
         backPressedTime=System.currentTimeMillis();
     }
     private void showProgress() {
-        Context context;
         progressDialog = new ProgressDialog(WelcomePageActivity.this);
         progressDialog.show();
         progressDialog.setContentView(R.layout.process_dialog);

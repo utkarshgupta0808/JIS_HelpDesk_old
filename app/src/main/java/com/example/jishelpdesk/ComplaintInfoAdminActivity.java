@@ -1,15 +1,15 @@
 package com.example.jishelpdesk;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import java.util.Objects;
 
@@ -20,6 +20,7 @@ public class ComplaintInfoAdminActivity extends AppCompatActivity {
     Bundle extra;
     Button btnAssign;
     ProgressDialog progressDialog;
+    LinearLayout linearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,9 @@ public class ComplaintInfoAdminActivity extends AppCompatActivity {
         numberText=findViewById(R.id.number);
         addressText=findViewById(R.id.address);
         btnAssign=findViewById(R.id.btn_assign);
+        linearLayout=findViewById(R.id.complaint_info);
+
+        linearLayout.setVerticalScrollBarEnabled(true);
 
 
         setSupportActionBar(toolbar);
@@ -56,6 +60,7 @@ public class ComplaintInfoAdminActivity extends AppCompatActivity {
             public void onClick(View view) {
                 showProgress();
                 Intent intent=new Intent(ComplaintInfoAdminActivity.this, AssignEmpActivity.class);
+                intent.putExtras(extra);
                 startActivity(intent);
                 finish();
                 progressDialog.dismiss();
@@ -65,7 +70,6 @@ public class ComplaintInfoAdminActivity extends AppCompatActivity {
     }
 
     private void showProgress() {
-        Context context;
         progressDialog = new ProgressDialog(ComplaintInfoAdminActivity.this);
         progressDialog.show();
         progressDialog.setContentView(R.layout.process_dialog);

@@ -1,6 +1,7 @@
 package com.example.jishelpdesk;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -25,6 +27,8 @@ public class ComplaintAdminAdapter extends FirestoreRecyclerAdapter<ComplaintMod
         holder.name.setText(model.getName());
         holder.date.setText(model.getDate());
         holder.status.setText(model.getStatus());
+        holder.cardView.setVerticalScrollBarEnabled(true);
+
         holder.viewDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,6 +65,7 @@ public class ComplaintAdminAdapter extends FirestoreRecyclerAdapter<ComplaintMod
         TextView date;
         TextView status;
         TextView viewDetails;
+        CardView cardView;
 
 
         public MyViewHolder(@NonNull View itemView) {
@@ -71,7 +76,7 @@ public class ComplaintAdminAdapter extends FirestoreRecyclerAdapter<ComplaintMod
             date = itemView.findViewById(R.id.date);
             status = itemView.findViewById(R.id.status);
             viewDetails=itemView.findViewById(R.id.view_details);
-
+            cardView=itemView.findViewById(R.id.card_complaint);
 
 
         }
