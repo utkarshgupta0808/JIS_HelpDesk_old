@@ -2,17 +2,18 @@ package com.example.jishelpdesk;
 
 public class EmpModel {
 
-    String name, number, pan, address, empid;
-//    long cActive,ctotal;
+    String name, number, pan, address, aadhaar;
+    long empid;
 
-    public EmpModel(String name, String number, String pan, String address, String empid, long cActive, long ctotal) {
+    public EmpModel(String name, String number, String pan, String address, long empid, long cActive, long ctotal) {
         this.name = name;
         this.number = number;
         this.pan = pan;
         this.address = address;
         this.empid = empid;
-//        this.cActive=cActive;
-//        this.ctotal=ctotal;
+        this.aadhaar=aadhaar;
+
+
     }
 
     public EmpModel() {
@@ -34,15 +35,13 @@ public class EmpModel {
         return address;
     }
 
-    public String getEmpid() {
+    public long getEmpid() {
         return empid;
     }
 
-//    public long getcActive() {
-//        return cActive;
-//    }
-//
-//    public long getCtotal() {
-//        return ctotal;
-//    }
+    public String getAadhaar() {
+        return aadhaar;
+    }
+
+
 }

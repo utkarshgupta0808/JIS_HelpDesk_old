@@ -1,6 +1,6 @@
 package com.example.jishelpdesk;
 
-import android.app.Activity;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,6 +22,7 @@ public class ComplaintEmpAdapter extends FirestoreRecyclerAdapter<ComplaintModel
         super(options);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onBindViewHolder(@NonNull final ComplaintEmpAdapter.MyViewHolder holder, int position, @NonNull final ComplaintModel model) {
 
@@ -33,7 +34,7 @@ public class ComplaintEmpAdapter extends FirestoreRecyclerAdapter<ComplaintModel
             public void onClick(View view) {
                 Intent intent=new Intent(holder.viewDetails.getContext(), ComplaintInfoEmpActivity.class);
                 Bundle bundle=new Bundle();
-                bundle.putString("tokenId", model.getTokenId());
+                bundle.putLong("tokenId", model.getTokenId());
                 bundle.putString("name", model.getName());
                 bundle.putString("date", model.getDate());
                 bundle.putString("complaint", model.getComplaint());

@@ -52,19 +52,17 @@
 
 
     <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_gravity="center"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
         app:cardCornerRadius="20dp"
         android:elevation="40dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:layout_marginTop="10dp"
             android:orientation="vertical">
 
@@ -73,6 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
+                android:layout_gravity="center"
                 android:orientation="horizontal">
 
                 <TextView
@@ -84,7 +83,7 @@
 
                 <TextView
                     android:id="@+id/tokenid"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:text="qwerty"
@@ -239,7 +238,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:text="qwertyjhuhouhjh ."
+                android:text="qwertjghghjghghjghghghghg ."
                 android:textColor="@color/colorPrimary"
                 android:textSize="20sp" />
 

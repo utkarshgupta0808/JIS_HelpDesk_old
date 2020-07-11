@@ -107,7 +107,6 @@ public class AdminLoginActivity extends AppCompatActivity {
 
     }
     private void showProgress() {
-        Context context;
         progressDialog = new ProgressDialog(AdminLoginActivity.this);
         progressDialog.show();
         progressDialog.setContentView(R.layout.process_dialog);

@@ -23,7 +23,7 @@ public class ComplaintAdminAdapter extends FirestoreRecyclerAdapter<ComplaintMod
     @SuppressLint("SetTextI18n")
     @Override
     protected void onBindViewHolder(@NonNull final MyViewHolder holder, int position, @NonNull final ComplaintModel model) {
-        holder.tokenId.setText(""+model.getTokenId());
+        holder.tokenId.setText("" +model.getTokenId());
         holder.name.setText(model.getName());
         holder.date.setText(model.getDate());
         holder.status.setText(model.getStatus());
@@ -34,7 +34,7 @@ public class ComplaintAdminAdapter extends FirestoreRecyclerAdapter<ComplaintMod
             public void onClick(View view) {
                 Intent intent=new Intent(holder.viewDetails.getContext(), ComplaintInfoAdminActivity.class);
                 Bundle bundle=new Bundle();
-                bundle.putString("tokenId", model.getTokenId());
+                bundle.putLong("tokenId", model.getTokenId());
                 bundle.putString("name", model.getName());
                 bundle.putString("date", model.getDate());
                 bundle.putString("status", model.getStatus());

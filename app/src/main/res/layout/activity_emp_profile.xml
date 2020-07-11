@@ -146,12 +146,23 @@
             android:layout_marginEnd="5dp"
             android:background="@color/colorPrimaryDark"></TableRow>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ID PROOF:"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="20dp"/>
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -159,7 +170,7 @@
                 android:layout_height="wrap_content"
                 android:text="PAN Number:"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="18sp" />
+                android:textSize="17sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -167,7 +178,7 @@
                 android:layout_marginStart="10dp"
                 android:text="pan number"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="18sp"
+                android:textSize="17sp"
                 android:id="@+id/pan"/>
 
         </LinearLayout>
@@ -182,18 +193,18 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Adhaar Card:"
+                android:text="Aadhaar Card:"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="18sp" />
+                android:textSize="17sp" />
 
-            <Button
-                android:id="@+id/btn_adhaar"
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:layout_marginStart="20dp"
-                android:background="@drawable/custom_button1"
-                android:text="Download"
-                android:textColor="@color/colorAccent" />
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="aadhaar number"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="17sp"
+                android:id="@+id/aadhaar"/>
 
         </LinearLayout>
 

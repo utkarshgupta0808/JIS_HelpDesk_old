@@ -1,5 +1,6 @@
 package com.example.jishelpdesk;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ public class ComplaintInfoAdminActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     LinearLayout linearLayout;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +48,7 @@ public class ComplaintInfoAdminActivity extends AppCompatActivity {
         extra=getIntent().getExtras();
 
         if(extra != null){
-            tokenText.setText(extra.getString("tokenId"));
+            tokenText.setText(""+extra.getLong("tokenId"));
             nameText.setText(extra.getString("name"));
             dateText.setText(extra.getString("date"));
             statusText.setText(extra.getString("status"));

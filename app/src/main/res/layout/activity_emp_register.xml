@@ -17,17 +17,19 @@
     app:title="JIS HelpDesk"/>
 
     <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_marginTop="30dp"
         android:layout_height="wrap_content"
         android:elevation="100dp"
         app:cardCornerRadius="20dp"
-        android:layout_gravity="center_horizontal"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
         android:paddingBottom="20dp">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:orientation="vertical">
 
             <TextView
@@ -87,44 +89,20 @@
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Upload Adhaar Card( JPEG, JPG, PNG)"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="20dp"
-                android:textColor="@color/colorPrimaryDark"
-                android:layout_marginStart="20dp"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <Button
-                    android:layout_width="60dp"
-                    android:layout_height="20dp"
-                    android:textSize="10sp"
-                    android:background="@drawable/custom_button1"
-                    android:textColor="@color/colorAccent"
-                    android:text="UPLOAD"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/btn_upload"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Aadhaar card uploaded"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="4dp"
-                    android:textSize="10sp"
-                    android:layout_marginStart="10dp"
-                    android:textColor="@color/colorPrimary"
-                    android:visibility="invisible"
-                    android:id="@+id/upload_status"/>
-
-            </LinearLayout>
+            <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/custom_edittext"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:drawableStart="@drawable/ic_baseline_credit_card_24"
+            android:hint="Aadhaar Number"
+            android:paddingStart="10dp"
+            android:id="@+id/emp_aadhaar"
+            android:paddingEnd="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"/>
 
 
             <LinearLayout

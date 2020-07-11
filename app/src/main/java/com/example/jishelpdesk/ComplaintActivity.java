@@ -38,10 +38,10 @@ public class ComplaintActivity extends AppCompatActivity {
     Toolbar toolbar;
     Map<String, Object> user = new HashMap<>();
     FirebaseFirestore db;
-    String cDate, tokenString;
+    String cDate;
     Calendar calendar;
     String currentDate;
-    Long c;
+    long c;
 
 
 
@@ -117,7 +117,6 @@ public class ComplaintActivity extends AppCompatActivity {
 
                             c= Objects.requireNonNull(documentSnapshot).getLong("countComplaint");
 
-                            tokenString=""+c;
                             c++;
 
 
@@ -127,7 +126,7 @@ public class ComplaintActivity extends AppCompatActivity {
                                     .collection("Counter").document("123456789");
 
                             Map<String, Object>map1=new HashMap<>();
-                            map1.put("count", c);
+                            map1.put("countComplaint", c);
 
                             docRef.update(map1).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
@@ -141,7 +140,7 @@ public class ComplaintActivity extends AppCompatActivity {
                                 }
                             });
 
-                            user.put("tokenId", tokenString);
+                            user.put("tokenId", c);
                             user.put("name", cName);
                             user.put("mobile", cMobile);
                             user.put("status", "Unassigned");
@@ -154,7 +153,7 @@ public class ComplaintActivity extends AppCompatActivity {
                                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                         @Override
                                         public void onSuccess(DocumentReference documentReference) {
-                                            Toast.makeText(ComplaintActivity.this, "Complaint Registered with token id "+ tokenString, Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(ComplaintActivity.this, "Complaint Registered with token id "+ c, Toast.LENGTH_SHORT).show();
                                             resetFields();
 
                                         }
@@ -171,6 +170,9 @@ public class ComplaintActivity extends AppCompatActivity {
 
                             progressDialog.dismiss();
                             Intent intent=new Intent(ComplaintActivity.this, ComplaintRegisteredActivity.class);
+                            Bundle bundle=new Bundle();
+                            bundle.putLong("tokenID",c);
+                            intent.putExtras(bundle);
                             startActivity(intent);
                             finish();
 

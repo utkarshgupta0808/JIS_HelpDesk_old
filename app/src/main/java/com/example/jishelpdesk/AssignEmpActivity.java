@@ -21,7 +21,8 @@ public class AssignEmpActivity extends AppCompatActivity {
     FirebaseFirestore firebaseFirestore;
     FirebaseAuth firebaseAuth;
     EmpAdapter empAdapter;
-    static String tokenId, name, date, number, status, complaint, address;
+    static String  name, date, number, status, complaint, address;
+    static long tokenId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,7 @@ public class AssignEmpActivity extends AppCompatActivity {
         Bundle extra=getIntent().getExtras();
 
         assert extra != null;
-        tokenId=extra.getString("tokenId");
+        tokenId=extra.getLong("tokenId");
         name=extra.getString("name");
         date=extra.getString("date");
         status=extra.getString("status");

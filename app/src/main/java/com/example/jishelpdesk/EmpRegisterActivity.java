@@ -25,12 +25,11 @@ import java.util.Objects;
 public class EmpRegisterActivity extends AppCompatActivity {
 
     Toolbar toolbar;
-    Button btnReg, btnReset, btnAadhar;
-    TextView eName, eAddress, ePanNumber, uploadStatus;
+    Button btnReg, btnReset;
+    TextView eName, eAddress, ePanNumber, eAadhaarNumber;
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firebaseFirestore;
     ProgressDialog progressDialog;
-    String empid;
     long en;
     Bundle extra;
 
@@ -46,8 +45,7 @@ public class EmpRegisterActivity extends AppCompatActivity {
         eName=findViewById(R.id.emp_name);
         eAddress=findViewById(R.id.emp_address);
         ePanNumber=findViewById(R.id.emp_pan);
-        btnAadhar=findViewById(R.id.btn_upload);
-        uploadStatus=findViewById(R.id.upload_status);
+        eAadhaarNumber=findViewById(R.id.emp_aadhaar);
 
         extra=getIntent().getExtras();
 
@@ -72,11 +70,9 @@ public class EmpRegisterActivity extends AppCompatActivity {
                 else if(ePanNumber.getText().toString().isEmpty()){
                     ePanNumber.setError("Pan Number is Mandatory");
                 }
-                else if (extra==null){
+                else if (eAadhaarNumber.getText().toString().isEmpty()){
 
-                    uploadStatus.setError("Aadhaar card is required");
-                    Toast.makeText(EmpRegisterActivity.this, "Upload Aadhaar card first!!", Toast.LENGTH_SHORT).show();
-
+                    eAadhaarNumber.setError("Pan Number is Mandatory");
                 }
                 else {
                     showProgress();
@@ -88,21 +84,23 @@ public class EmpRegisterActivity extends AppCompatActivity {
                             if (task.isSuccessful()){
                                 DocumentSnapshot documentSnapshot=task.getResult();
 
-                                en= Objects.requireNonNull(documentSnapshot).getLong("countComplaint");
+                                en= Objects.requireNonNull(documentSnapshot).getLong("countEmp");
 
-                                empid="Emp"+en;
+
                                 en=en+1;
 
                                 String name=eName.getText().toString();
                                 String address=eAddress.getText().toString();
                                 String pan=ePanNumber.getText().toString();
+                                String aadhaar=eAadhaarNumber.getText().toString();
                                 String number=firebaseAuth.getCurrentUser().getPhoneNumber();
                                 HashMap<String,Object>user=new HashMap<>();
                                 user.put("name",name);
                                 user.put("address", address);
                                 user.put("pan",pan);
                                 user.put("number", number);
-                                user.put("empid",empid);
+                                user.put("empid",en);
+                                user.put("aadhaar",aadhaar);
                                 user.put("cActive",0);
                                 user.put("ctotal",0);
 
@@ -118,6 +116,17 @@ public class EmpRegisterActivity extends AppCompatActivity {
                                         else {
                                             Toast.makeText(EmpRegisterActivity.this, "Registration Failed", Toast.LENGTH_SHORT).show();
                                         }
+                                        firebaseFirestore.collection("Counter").document("123456789")
+                                                .update("countEmp",en).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()){
+
+                                                }else {
+
+                                                }
+                                            }
+                                        });
                                     }
                                 });
 
@@ -138,29 +147,16 @@ public class EmpRegisterActivity extends AppCompatActivity {
             }
         });
 
-        btnAadhar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(EmpRegisterActivity.this,UploadAdhar.class);
-                startActivity(intent);
-            }
-        });
+
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (extra != null) {
-
-            uploadStatus.setVisibility(View.VISIBLE);
-        }
-    }
 
     public void resetFields(){
 
         ePanNumber.setText("");
         eAddress.setText("");
         eName.setText("");
+        eAadhaarNumber.setText("");
 
     }
     private void showProgress() {

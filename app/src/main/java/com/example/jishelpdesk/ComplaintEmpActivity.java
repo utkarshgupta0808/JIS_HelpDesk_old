@@ -66,20 +66,7 @@ public class ComplaintEmpActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(complaintEmpAdapter);
 
-        firebaseFirestore.collection("Employee").document(mAuth.getUid())
-                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()){
-                    DocumentSnapshot documentSnapshot=task.getResult();
-                    countActive=documentSnapshot.getLong("cActive");
-                    countTotal=documentSnapshot.getLong("ctotal");
-                }
-                else {
-                    return;
-                }
-            }
-        });
+
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,6 +77,21 @@ public class ComplaintEmpActivity extends AppCompatActivity {
         btnProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                firebaseFirestore.collection("Employee").document(mAuth.getUid())
+                        .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()){
+                            DocumentSnapshot documentSnapshot=task.getResult();
+                            countActive=documentSnapshot.getLong("cActive");
+                            countTotal=documentSnapshot.getLong("ctotal");
+                        }
+                        else {
+
+                        }
+                    }
+                });
                 DocumentReference documentReference=firebaseFirestore.collection("Employee").document(mAuth.getUid());
                 documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
@@ -104,8 +106,9 @@ public class ComplaintEmpActivity extends AppCompatActivity {
                                 extra.putString("name", (String) documentSnapshot.get("name"));
                                 extra.putString("address", (String) documentSnapshot.get("address"));
                                 extra.putString("pan", (String) documentSnapshot.get("pan"));
-                                extra.putString("empid", (String) documentSnapshot.get("empid"));
+                                extra.putLong("empid", (Long) documentSnapshot.get("empid"));
                                 extra.putString("number", (String) documentSnapshot.get("number"));
+                                extra.putString("aadhaar", (String) documentSnapshot.get("aadhaar"));
                                 extra.putLong("cActive",  countActive);
                                 extra.putLong("cTotal", countTotal);
                                 extra.putBoolean("stat",false);

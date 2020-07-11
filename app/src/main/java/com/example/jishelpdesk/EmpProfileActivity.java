@@ -11,7 +11,7 @@ public class EmpProfileActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     Bundle extra;
-    TextView name, empId, address, number, panNumber,countActive, countTotal;
+    TextView name, empId, address, number, panNumber, aadhaarNumber,countActive, countTotal;
 
 
     @SuppressLint("SetTextI18n")
@@ -26,6 +26,7 @@ public class EmpProfileActivity extends AppCompatActivity {
         address=findViewById(R.id.address);
         number=findViewById(R.id.number);
         panNumber=findViewById(R.id.pan);
+        aadhaarNumber=findViewById(R.id.aadhaar);
         countActive=findViewById(R.id.count_active);
         countTotal=findViewById(R.id.count_total);
 
@@ -41,7 +42,8 @@ public class EmpProfileActivity extends AppCompatActivity {
             number.setText(extra.getString("number"));
             address.setText(extra.getString("address"));
             panNumber.setText(extra.getString("pan"));
-            empId.setText(extra.getString("empid"));
+            empId.setText("" +extra.getLong("empid"));
+            aadhaarNumber.setText(extra.getString("aadhaar"));
             countActive.setText(""+extra.getLong("cActive"));
             countTotal.setText(""+extra.getLong("cTotal"));
 

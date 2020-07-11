@@ -1,6 +1,6 @@
 package com.example.jishelpdesk;
 
-import android.content.Intent;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -33,6 +33,7 @@ public class ComplaintInfoEmpActivity extends AppCompatActivity {
     FirebaseFirestore firebaseFirestore;
     FirebaseAuth firebaseAuth;
     long countActive;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +57,7 @@ public class ComplaintInfoEmpActivity extends AppCompatActivity {
         extra = getIntent().getExtras();
 
         if (extra != null) {
-            tokenText.setText(extra.getString("tokenId"));
+            tokenText.setText(""+extra.getLong("tokenId"));
             nameText.setText(extra.getString("name"));
             dateText.setText(extra.getString("date"));
             complaintText.setText(extra.getString("complaint"));
@@ -67,10 +68,11 @@ public class ComplaintInfoEmpActivity extends AppCompatActivity {
         complaintSolved.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                showProgress();
                 final DocumentReference documentReference;
 
                 firebaseFirestore.collection("Complaint")
-                        .whereEqualTo("tokenId",extra.getString("tokenId"))
+                        .whereEqualTo("tokenId",extra.getLong("tokenId"))
                         .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -92,7 +94,7 @@ public class ComplaintInfoEmpActivity extends AppCompatActivity {
                 
                 documentReference=firebaseFirestore.collection("Employee").document(Objects.requireNonNull(firebaseAuth.getUid()));
                 documentReference.collection("Complaint")
-                        .whereEqualTo("tokenId",extra.getString("tokenId"))
+                        .whereEqualTo("tokenId",extra.getLong("tokenId"))
                         .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -115,6 +117,7 @@ public class ComplaintInfoEmpActivity extends AppCompatActivity {
                                             countActive = Objects.requireNonNull(documentSnapshot).getLong("cActive");
                                             countActive--;
                                             updateActiveCount(countActive);
+                                            progressDialog.dismiss();
 //                                            startActivity(intent);
                                             finish();
                                         } else {
@@ -159,6 +162,15 @@ public class ComplaintInfoEmpActivity extends AppCompatActivity {
                 }
                 }
         });
+    }
+
+    private void showProgress() {
+        progressDialog = new ProgressDialog(ComplaintInfoEmpActivity.this);
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.process_dialog);
+        Objects.requireNonNull(progressDialog.getWindow()).setBackgroundDrawableResource(
+                android.R.color.transparent
+        );
     }
 
 }

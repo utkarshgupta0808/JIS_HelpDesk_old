@@ -2,7 +2,7 @@ package com.example.jishelpdesk;
 
 public class ComplaintModel {
 
-    String tokenId;
+    long tokenId;
     String name;
     String date;
     String status;
@@ -15,7 +15,7 @@ public class ComplaintModel {
     }
 
 
-    public ComplaintModel(String tokenId, String name, String date, String status, String address, String complaint, String mobile) {
+    public ComplaintModel(long tokenId, String name, String date, String status, String address, String complaint, String mobile) {
         this.tokenId = tokenId;
         this.name = name;
         this.date = date;
@@ -27,7 +27,7 @@ public class ComplaintModel {
 
 
 
-    public String getTokenId() {
+    public long getTokenId() {
         return tokenId;
     }
 

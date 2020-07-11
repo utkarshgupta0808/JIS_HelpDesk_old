@@ -77,7 +77,7 @@ public class EmpAdapter extends FirestoreRecyclerAdapter<EmpModel, EmpAdapter.My
 
 
 
-                final String tokenId=AssignEmpActivity.tokenId;
+                final long tokenId=AssignEmpActivity.tokenId;
                 final String name=AssignEmpActivity.name;
                 String address=AssignEmpActivity.address;
                 String mobile=AssignEmpActivity.number;
@@ -201,11 +201,12 @@ public class EmpAdapter extends FirestoreRecyclerAdapter<EmpModel, EmpAdapter.My
 
                             Intent intent=new Intent(holder.assign.getContext(), EmpProfileActivity.class);
                             Bundle bundle=new Bundle();
-                            bundle.putString("empid", model.getEmpid());
+                            bundle.putLong("empid", model.getEmpid());
                             bundle.putString("name", model.getName());
                             bundle.putString("address", model.getAddress());
                             bundle.putString("pan", model.getPan());
                             bundle.putString("number", model.getNumber());
+                            bundle.putString("aadhaar", model.getAadhaar());
                             bundle.putLong("cActive",countActive[0]);
                             bundle.putLong("cTotal", countTotal[0]);
                             bundle.putBoolean("stat",true);

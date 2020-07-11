@@ -16,9 +16,6 @@
         <activity android:name=".ComplaintRegisteredActivity"
             android:parentActivityName=".WelcomePageActivity"/>
         <activity
-            android:name=".UploadAdhar"
-            android:parentActivityName=".EmpRegisterActivity" />
-        <activity
             android:name=".ComplaintInfoEmpActivity"
             android:parentActivityName=".ComplaintInfoEmpActivity" />
         <activity android:name=".EmpProfileActivity" />
