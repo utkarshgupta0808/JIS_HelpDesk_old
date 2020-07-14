@@ -48,8 +48,7 @@ public class ForgotPassAdminActivity extends AppCompatActivity {
         textViewForgotSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ForgotPassAdminActivity.this, AdminLoginActivity.class);
-                startActivity(intent);
+
                 finish();
             }
         });

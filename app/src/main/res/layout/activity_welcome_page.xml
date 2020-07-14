@@ -14,7 +14,6 @@
         android:layout_height="wrap_content"
         android:title="JIS HelpDesk"
         android:background="@color/colorPrimary"
-
         android:titleTextColor="@color/colorAccent">
 
         <LinearLayout
@@ -63,9 +62,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="20dp"
                 android:background="@color/colorPrimaryDark"
                 android:scaleType="centerCrop"
+                android:layout_marginTop="10dp"
                 android:src="@drawable/logo_jis" />
 
             <TextView
@@ -88,199 +87,176 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <ImageView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:src="@drawable/helpdesk1"
-        android:layout_marginTop="20dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="WE ARE HERE TO HELP"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:textStyle="bold"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="20sp"/>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:layout_gravity="center"
-        android:orientation="horizontal">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Have an Issue ??"
-        android:textStyle="bold"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="20sp"/>
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="25dp"
-            android:paddingTop="4dp"
-            android:src="@drawable/ic_baseline_signal_wifi_off_24"
-            android:layout_gravity="start"
-            />
-
-
-    </LinearLayout>
-
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/custom_button1"
-        android:text="Submit your Complaint"
-        android:paddingEnd="10dp"
-        android:paddingStart="10dp"
-        android:id="@+id/complaintButton"
-        android:textColor="@color/colorAccent"
-        />
-
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="We Ensure to Resolve your Issues"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        android:textStyle="bold"-->
-<!--        android:layout_gravity="center"-->
-<!--        android:textColor="@color/colorPrimaryDark"-->
-<!--        android:layout_marginStart="20dp"-->
-<!--        android:layout_marginEnd="20dp"-->
-<!--        android:textSize="20sp"/>-->
-
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="soon and Serve you better"-->
-<!--        android:textColor="@color/colorPrimaryDark"-->
-<!--        android:layout_marginTop="10dp"-->
-<!--        android:textStyle="bold"-->
-<!--        android:layout_gravity="center"-->
-<!--        android:textSize="20sp"/>-->
-
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="70dp"
-        app:cardCornerRadius="20dp"
-        app:cardBackgroundColor="#B6C8ED"
-        android:elevation="20dp">
+        android:layout_height="match_parent"
+        android:measureAllChildren="true"
+        android:scrollbars="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/helpdesk1" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Contact Us"
+                android:layout_gravity="center"
+                android:text="WE ARE HERE TO HELP"
+                android:layout_marginTop="5dp"
                 android:textColor="@color/colorPrimaryDark"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="10dp"
-                android:textStyle="bold"
-                android:layout_gravity="start"
-                android:textSize="20sp"/>
-
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="60dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Have an Issue ??"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="start"
+                    android:paddingTop="4dp"
+                    android:src="@drawable/ic_baseline_signal_wifi_off_24" />
+
+
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/complaintButton"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:layout_gravity="bottom"
-                    android:src="@drawable/ic_baseline_phone_24" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:text="8467871305"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="14sp"
-                    android:id="@+id/number"/>
+                android:background="@drawable/custom_button1"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="Submit your Complaint"
+                android:textColor="@color/colorAccent" />
 
 
-            </LinearLayout>
-
-
-            <LinearLayout
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="70dp"
+                android:layout_marginEnd="5dp"
+                android:elevation="20dp"
+                app:cardCornerRadius="20dp"
+                app:cardBackgroundColor="#94AAE8">
 
-                <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:layout_gravity="bottom"
-                    android:src="@drawable/ic_baseline_mail_outline_24"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:text="jisnoida@gmail.com"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="14sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="Contact Us:"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="20sp"
+                        android:layout_marginTop="10dp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_baseline_phone_24"
+                            android:layout_gravity="bottom"
+                            android:layout_marginStart="5dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="+918467871305"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:layout_marginStart="5dp"
+                            android:textSize="14sp"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_baseline_mail_outline_24"
+                            android:layout_gravity="bottom"
+                            android:layout_marginStart="5dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="jisnoida@gmail.com"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:layout_marginStart="5dp"
+                            android:textSize="14sp"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_office"
+                            android:layout_gravity="bottom"
+                            android:layout_marginStart="5dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Shop No.2 H-169 Sector-12 Noida"
+                            android:layout_marginStart="5dp"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="14sp"/>
+
+                    </LinearLayout>
 
 
-            </LinearLayout>
+                </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="10dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:src="@drawable/ic_office"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:text="Shop No.2 H-169 Sector-12 Noida"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="14sp" />
-
-
-            </LinearLayout>
-
+            </androidx.cardview.widget.CardView>
 
 
         </LinearLayout>
 
-
-
-
-
-
-
-
-    </androidx.cardview.widget.CardView>
-
-
-
+    </ScrollView>
 
 
 </LinearLayout>
